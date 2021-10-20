@@ -1,6 +1,8 @@
+const path = require('path');
 const express = require('express');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
+const fileupload = require('express-fileupload');
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/error');
 //Load env vars
@@ -23,9 +25,16 @@ if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 }
 
+// File uploading
+app.use(fileupload());
+
+// Set static folder
+app.use(express.static(path.join((__dirname, 'public'))));
+
 // Mount routers
 app.use('/api/v1/bootcamps', bootcamps);
 app.use('/api/v1/courses', courses);
+
 // Using our costum error handler
 app.use(errorHandler);
 
