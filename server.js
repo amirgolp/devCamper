@@ -47,6 +47,11 @@ app.use(mongoSanitize());
 
 // Set security headers
 app.use(helmet());
+// app.use(
+//     helmet({
+//       contentSecurityPolicy: false,
+//     })
+//   );
 
 // Prevent cross-site scripting
 app.use(xss());
